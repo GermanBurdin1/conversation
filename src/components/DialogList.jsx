@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 export default function DialogList({ dialogs, setDialogs, onSelect, onCreateDialog }) {
   const [newDialogTitle, setNewDialogTitle] = useState('');
   const [isCreatingDialog, setIsCreatingDialog] = useState(false);
+  const [editingDialogId, setEditingDialogId] = useState(null);
+  const [editedTitle, setEditedTitle] = useState('');
 
   useEffect(() => {
     console.log('Fetching conversations'); // Лог начала запроса
@@ -65,6 +67,63 @@ export default function DialogList({ dialogs, setDialogs, onSelect, onCreateDial
     }
   };
 
+  const handleDeleteDialog = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5001/conversations/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        setDialogs((prevDialogs) => prevDialogs.filter(dialog => dialog.id !== id));
+      } else {
+        alert('Failed to delete conversation');
+      }
+    } catch (error) {
+      console.error('Error deleting conversation:', error);
+    }
+  };
+
+  const handleEditDialogTitle = async (id, newTitle) => {
+    if (newTitle.trim() === "") {
+      alert("Dialog title cannot be empty");
+      return;
+    }
+    try {
+      const response = await fetch(`http://localhost:5001/conversations/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title: newTitle })
+      });
+
+      if (response.ok) {
+        setDialogs((prevDialogs) => prevDialogs.map(dialog => 
+          dialog.id === id ? { ...dialog, title: newTitle } : dialog
+        ));
+        setEditingDialogId(null);
+      } else {
+        alert('Failed to edit conversation title');
+      }
+    } catch (error) {
+      console.error('Error editing conversation title:', error);
+    }
+  };
+
+  const handleEditClick = (id, title) => {
+    setEditingDialogId(id);
+    setEditedTitle(title);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingDialogId(null);
+    setEditedTitle('');
+  };
+
+  const handleSaveEdit = (id) => {
+    handleEditDialogTitle(id, editedTitle);
+  };
+
   return (
     <div className="dialogList">
       <a href="/">Home</a>
@@ -72,7 +131,35 @@ export default function DialogList({ dialogs, setDialogs, onSelect, onCreateDial
         console.log('Generating link for dialog:', dialog.id); // Лог ID диалога
         return (
           <div key={dialog.id} onClick={() => onSelect(dialog.id)}>
-            {dialog.title}
+            {editingDialogId === dialog.id ? (
+              <>
+                <input 
+                  type="text" 
+                  value={editedTitle}
+                  onChange={(e) => setEditedTitle(e.target.value)}
+                />
+                <button onClick={(e) => {
+                  e.stopPropagation();
+                  handleSaveEdit(dialog.id);
+                }}>Sauvegarder les changements</button>
+                <button onClick={(e) => {
+                  e.stopPropagation();
+                  handleCancelEdit();
+                }}>Annuler</button>
+              </>
+            ) : (
+              <>
+                <span>{dialog.title}</span>
+                <button onClick={(e) => {
+                  e.stopPropagation();
+                  handleEditClick(dialog.id, dialog.title);
+                }}>Modifier</button>
+                <button onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteDialog(dialog.id);
+                }}>Delete</button>
+              </>
+            )}
           </div>
         );
       })}

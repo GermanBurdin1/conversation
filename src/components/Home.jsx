@@ -34,10 +34,10 @@ const Home = () => {
     console.log('Selected dialog id:', id); // Лог выбора диалога
   };
 
-  const handleDeleteMessage = (messageIndex) => {
+  const handleDeleteMessagePair = (messageIndex) => {
     setDialogs((prevDialogs) => {
       const newDialogs = prevDialogs.map(dialog =>
-        dialog.id === activeDialogId ? { ...dialog, messages: dialog.messages.filter((_, i) => i !== messageIndex) } : dialog
+        dialog.id === activeDialogId ? { ...dialog, messages: dialog.messages.filter((_, i) => i !== messageIndex && i !== messageIndex + 1) } : dialog
       );
       return newDialogs;
     });
@@ -76,7 +76,7 @@ const Home = () => {
           <Dialog 
             id={activeDialogId}
             messages={dialogs.find(dialog => dialog.id === activeDialogId)?.messages || []}
-            onDelete={handleDeleteMessage}
+            onDelete={handleDeleteMessagePair}
             onReset={handleResetDialog}
             onSend={handleSend} // Передаем handleSend в компонент Dialog
           />

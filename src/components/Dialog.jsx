@@ -87,8 +87,8 @@ export default function Dialog({ id, messages, onDelete, onReset, onSend }) {
     }
   };
 
-  const handleDeleteMessage = (messageIndex) => {
-    onDelete(messageIndex);
+  const handleDeleteMessagePair = (index) => {
+    onDelete(index);
   };
 
   const handleResetMessages = () => {
@@ -100,10 +100,17 @@ export default function Dialog({ id, messages, onDelete, onReset, onSend }) {
       <h2>Conversation {id}</h2>
       <div className="messages">
         {localMessages.map((message, index) => (
-          <div key={index} className={`message ${message.role}`}>
-            {message.content}
-            <button onClick={() => handleDeleteMessage(index)}>Delete</button>
-          </div>
+          index % 2 === 0 && index + 1 < localMessages.length ? (
+            <div key={index} className="message-pair">
+              <div className={`message ${localMessages[index].role}`}>
+                {localMessages[index].content}
+              </div>
+              <div className={`message ${localMessages[index + 1].role}`}>
+                {localMessages[index + 1].content}
+              </div>
+              <button onClick={() => handleDeleteMessagePair(index)}>Delete</button>
+            </div>
+          ) : null
         ))}
       </div>
       <button onClick={handleResetMessages}>Reset Dialog</button>

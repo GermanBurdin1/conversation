@@ -40,20 +40,29 @@
   font-weight: bold;
 }
 
+.dialogList input {
+  flex-grow: 1;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
 .dialogList button {
-  display: block; /* Делаем кнопку блочным элементом */
-  width: 100%;
-  padding: 15px;
+  padding: 10px;
   border: none;
-  background-color: #007bff; /* Фон кнопки */
-  color: white; /* Цвет текста кнопки */
+  background-color: #007bff;
+  color: white;
   cursor: pointer;
-  text-align: center; /* Центрируем текст внутри кнопки */
-  margin-top: 10px; /* Добавляем расстояние над кнопкой */
+  border-radius: 5px;
 }
 
 .dialogList button:hover {
-  background-color: #0056b3; /* Фон кнопки при наведении */
+  background-color: #0056b3;
+}
+
+.dialogList button + button {
+  margin-left: 10px;
 }
 
 /* Основная область мессенджера */
@@ -112,6 +121,33 @@
 }
 
 .message button:hover {
+  color: #0056b3;
+}
+
+.message-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.message-pair .message {
+  margin: 0;
+}
+
+.message-pair button {
+  align-self: flex-end;
+  background-color: transparent;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.message-pair button:hover {
   color: #0056b3;
 }
 
