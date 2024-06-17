@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import InputMessage from './InputMessage';
 
-export default function Dialog({ id, messages, onDelete, onReset, onSend }) {
-  const [localMessages, setLocalMessages] = useState(messages);
+export default function Dialog({ id, messages = [], onDelete, onReset, onSend }) {
+  const [localMessages, setLocalMessages] = useState(Array.isArray(messages) ? messages : []);
 
   useEffect(() => {
     console.log('Fetching messages for conversation ID:', id); // Лог ID
-    setLocalMessages(messages);
+    setLocalMessages(Array.isArray(messages) ? messages : []);
   }, [id, messages]);
 
   const fetchRandomMessage = async () => {
@@ -36,6 +36,12 @@ export default function Dialog({ id, messages, onDelete, onReset, onSend }) {
       const response = await fetch(url);
       if (response.ok) {
         const conversation = await response.json();
+        console.log('Fetched conversation:', conversation); // Лог полученных данных
+
+        // Ensure messages is an array
+        if (!Array.isArray(conversation.messages)) {
+          conversation.messages = [];
+        }
 
         // Update the conversation with the new message
         const updatedMessages = [...conversation.messages, { content: message, role: 'user' }];
@@ -60,10 +66,10 @@ export default function Dialog({ id, messages, onDelete, onReset, onSend }) {
             const fakeResponseContent = await fetchRandomMessage();
             const fakeResponse = { content: fakeResponseContent, role: 'assistant' };
             const updatedMessagesWithFakeResponse = [...updatedMessages, fakeResponse];
-            const updatedConversationWithFakeResponse = { ...conversation, messages: updatedMessagesWithFakeResponse };
+            const updatedConversationWithFakeResponse = { ...updatedConversation, messages: updatedMessagesWithFakeResponse };
 
             // Send the updated conversation back to the server
-            await fetch(`http://localhost:5001/conversations/${id}`, {
+            const putFakeResponse = await fetch(`http://localhost:5001/conversations/${id}`, {
               method: 'PUT',
               headers: {
                 'Content-Type': 'application/json'
@@ -71,8 +77,12 @@ export default function Dialog({ id, messages, onDelete, onReset, onSend }) {
               body: JSON.stringify(updatedConversationWithFakeResponse)
             });
 
-            setLocalMessages(updatedMessagesWithFakeResponse);
-            onSend(fakeResponse.content);
+            if (putFakeResponse.ok) {
+              setLocalMessages(updatedMessagesWithFakeResponse);
+              onSend(fakeResponse.content);
+            } else {
+              console.error('Failed to update conversation with fake response:', putFakeResponse.status);
+            }
           }, 1000); // 1 second delay for fake response
         } else {
           console.error('Failed to update conversation:', putResponse.status);
@@ -88,10 +98,16 @@ export default function Dialog({ id, messages, onDelete, onReset, onSend }) {
   };
 
   const handleDeleteMessagePair = (index) => {
+    setLocalMessages((prevMessages) => {
+      const updatedMessages = [...prevMessages];
+      updatedMessages.splice(index, 2); // Удаляем пару сообщений
+      return updatedMessages;
+    });
     onDelete(index);
   };
 
   const handleResetMessages = () => {
+    setLocalMessages([]);
     onReset();
   };
 
@@ -118,3 +134,4 @@ export default function Dialog({ id, messages, onDelete, onReset, onSend }) {
     </div>
   );
 }
+

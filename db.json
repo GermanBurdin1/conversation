@@ -65,20 +65,82 @@
         {
           "content": "The only true wisdom is in knowing you know nothing.",
           "role": "assistant"
+        },
+        {
+          "content": "hello",
+          "role": "user"
+        },
+        {
+          "content": "Always keep your mind as bright and clear as the vast sky, the great ocean, and the highest peak, empty of all thoughts. Always keep your body filled with light and heat. Fill yourself with the power of wisdom and enlightenment.",
+          "role": "assistant"
         }
       ]
     },
     {
       "id": "099b",
-      "title": "java"
+      "title": "java",
+      "messages": [
+        {
+          "content": "hello",
+          "role": "user"
+        },
+        {
+          "content": "The greatest discovery of our generation is that human beings can alter their lives by altering their attitudes of mind. As you think, so shall you be.",
+          "role": "assistant"
+        },
+        {
+          "content": "how are you",
+          "role": "user"
+        },
+        {
+          "content": "Be like the flower, turn your face to the sun.",
+          "role": "assistant"
+        }
+      ]
     },
     {
       "id": "7d92",
-      "title": "angular"
+      "title": "angular",
+      "messages": [
+        {
+          "content": "hi",
+          "role": "user"
+        },
+        {
+          "content": "He who learns must suffer. And even in our sleep pain that cannot forget falls drop by drop upon the heart, and in our own despair, against our will, comes wisdom to us by the awful grace of God.",
+          "role": "assistant"
+        },
+        {
+          "content": "how are you ",
+          "role": "user"
+        },
+        {
+          "content": "If a man does not make new acquaintances as he advances through life, he will soon find himself left alone. A man, sir, should keep his friendship in a constant repair.",
+          "role": "assistant"
+        }
+      ]
     },
     {
       "id": "2383",
-      "title": "symphony"
+      "title": "symphony",
+      "messages": [
+        {
+          "content": "hello",
+          "role": "user"
+        },
+        {
+          "content": "Meaning is not what you start with but what you end up with.",
+          "role": "assistant"
+        },
+        {
+          "content": "bonjour",
+          "role": "user"
+        },
+        {
+          "content": "By failing to prepare, you are preparing to fail.",
+          "role": "assistant"
+        }
+      ]
     }
   ]
 }
