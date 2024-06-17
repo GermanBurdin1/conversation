@@ -1,0 +1,104 @@
+/* Общий стиль для всей страницы */
+.chatPage {
+  display: flex;
+  height: 100vh; /* Высота страницы на весь экран */
+  width: 100%;
+  font-family: Arial, sans-serif; /* Задание основного шрифта */
+  background-color: #f0f0f0; /* Фон страницы */
+}
+
+.dialogList {
+  width: 260px;
+  height: 100%;
+  overflow-x: hidden;
+  border: 1px solid black;
+  background-color: #ffffff; /* Фон списка диалогов */
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Тень для списка диалогов */
+}
+
+.dialogList a {
+  display: block; /* Делаем ссылки блочными элементами */
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  text-decoration: none; /* Убираем подчеркивание */
+  color: black; /* Цвет текста */
+}
+
+.dialogList a:hover {
+  background-color: #f9f9f9; /* Фон при наведении */
+}
+
+.dialogList a:active {
+  background-color: #e9e9e9; /* Фон при клике */
+}
+
+.dialogList a.selected {
+  background-color: #e1f5fe; /* Фон выбранного диалога */
+  font-weight: bold;
+}
+
+.dialogList button {
+  display: block; /* Делаем кнопку блочным элементом */
+  width: 100%;
+  padding: 15px;
+  border: none;
+  background-color: #007bff; /* Фон кнопки */
+  color: white; /* Цвет текста кнопки */
+  cursor: pointer;
+  text-align: center; /* Центрируем текст внутри кнопки */
+}
+
+.dialogList button:hover {
+  background-color: #0056b3; /* Фон кнопки при наведении */
+}
+
+
+/* Основная область мессенджера */
+.messenger {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  border: 1px solid black;
+  background-color: #ffffff; /* Фон мессенджера */
+}
+
+/* Диалог */
+.dialog {
+  flex-grow: 1;
+  border-bottom: 1px solid black;
+  padding: 10px;
+  overflow-y: auto; /* Скролл для длинных сообщений */
+}
+
+.dialog div {
+  padding: 5px 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+}
+
+.dialog div:nth-child(odd) {
+  background-color: #e1f5fe; /* Фон для нечетных сообщений */
+}
+
+.dialog div:nth-child(even) {
+  background-color: #ffffff; /* Фон для четных сообщений */
+}
+
+/* Ввод сообщений */
+.inputMessage {
+  height: 60px; /* Задаем фиксированную высоту для ввода сообщений */
+  border-top: 1px solid black;
+  padding: 10px;
+  box-sizing: border-box; /* Учет паддингов и бордеров */
+}
+
+.inputMessage input {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box; /* Учет паддингов и бордеров */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
