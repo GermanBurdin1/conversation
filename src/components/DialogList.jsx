@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
-export default function DialogList() {
-  const [dialogs, setDialogs] = useState([]);
+export default function DialogList({ dialogs, setDialogs, onSelect, onCreateDialog }) {
   const [newDialogTitle, setNewDialogTitle] = useState('');
   const [isCreatingDialog, setIsCreatingDialog] = useState(false);
 
@@ -24,7 +22,7 @@ export default function DialogList() {
       }
     }
     fetchConversations();
-  }, []);
+  }, [setDialogs]);
 
   const handleInputChange = (e) => {
     setNewDialogTitle(e.target.value);
@@ -69,13 +67,13 @@ export default function DialogList() {
 
   return (
     <div className="dialogList">
-      <Link to="/">Home</Link>
-      {dialogs.map((dialog) => {
+      <a href="/">Home</a>
+      {dialogs.map((dialog, index) => {
         console.log('Generating link for dialog:', dialog.id); // Лог ID диалога
         return (
-          <Link key={dialog.id} to={`/conversations/${dialog.id}`}>
+          <div key={dialog.id} onClick={() => onSelect(dialog.id)}>
             {dialog.title}
-          </Link>
+          </div>
         );
       })}
       {isCreatingDialog ? (

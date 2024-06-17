@@ -5,35 +5,37 @@
   width: 100%;
   font-family: Arial, sans-serif; /* Задание основного шрифта */
   background-color: #f0f0f0; /* Фон страницы */
+  overflow: hidden; /* Убираем скроллы для всей страницы */
 }
 
 .dialogList {
   width: 260px;
   height: 100%;
-  overflow-x: hidden;
+  overflow-y: auto; /* Только вертикальный скролл */
   border: 1px solid black;
   background-color: #ffffff; /* Фон списка диалогов */
   box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Тень для списка диалогов */
+  padding: 10px; /* Добавляем внутренний отступ */
 }
 
-.dialogList a {
-  display: block; /* Делаем ссылки блочными элементами */
+.dialogList div {
   padding: 15px;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
   text-decoration: none; /* Убираем подчеркивание */
   color: black; /* Цвет текста */
+  margin-bottom: 10px; /* Добавляем расстояние между диалогами */
 }
 
-.dialogList a:hover {
+.dialogList div:hover {
   background-color: #f9f9f9; /* Фон при наведении */
 }
 
-.dialogList a:active {
+.dialogList div:active {
   background-color: #e9e9e9; /* Фон при клике */
 }
 
-.dialogList a.selected {
+.dialogList div.selected {
   background-color: #e1f5fe; /* Фон выбранного диалога */
   font-weight: bold;
 }
@@ -47,12 +49,12 @@
   color: white; /* Цвет текста кнопки */
   cursor: pointer;
   text-align: center; /* Центрируем текст внутри кнопки */
+  margin-top: 10px; /* Добавляем расстояние над кнопкой */
 }
 
 .dialogList button:hover {
   background-color: #0056b3; /* Фон кнопки при наведении */
 }
-
 
 /* Основная область мессенджера */
 .messenger {
@@ -61,28 +63,56 @@
   flex-grow: 1;
   border: 1px solid black;
   background-color: #ffffff; /* Фон мессенджера */
+  overflow-y: auto; /* Скролл только для сообщений */
 }
 
 /* Диалог */
-.dialog {
+.conversation {
   flex-grow: 1;
-  border-bottom: 1px solid black;
+  display: flex;
+  flex-direction: column;
   padding: 10px;
   overflow-y: auto; /* Скролл для длинных сообщений */
+  position: relative; /* Для фиксации inputMessage */
 }
 
-.dialog div {
-  padding: 5px 10px;
-  margin: 5px 0;
+/* Стили для сообщений */
+.messages {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
   border-radius: 5px;
+  border: 1px solid #ddd;
 }
 
-.dialog div:nth-child(odd) {
-  background-color: #e1f5fe; /* Фон для нечетных сообщений */
+.message.user {
+  background-color: #e1f5fe; /* Фон для сообщений пользователя */
+  align-self: flex-start; /* Сообщения пользователя слева */
+  max-width: 60%; /* Ограничиваем ширину сообщений */
 }
 
-.dialog div:nth-child(even) {
-  background-color: #ffffff; /* Фон для четных сообщений */
+.message.assistant {
+  background-color: #f1f1f1; /* Фон для сообщений ассистента */
+  align-self: flex-end; /* Сообщения ассистента справа */
+  max-width: 60%; /* Ограничиваем ширину сообщений */
+}
+
+.message button {
+  background-color: transparent;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.message button:hover {
+  color: #0056b3;
 }
 
 /* Ввод сообщений */
@@ -91,14 +121,31 @@
   border-top: 1px solid black;
   padding: 10px;
   box-sizing: border-box; /* Учет паддингов и бордеров */
+  display: flex;
+  gap: 10px;
+  position: sticky;
+  bottom: 0;
+  background-color: #ffffff; /* Фон для inputMessage */
 }
 
 .inputMessage input {
-  width: 100%;
-  height: 100%;
+  flex-grow: 1;
   padding: 10px;
   box-sizing: border-box; /* Учет паддингов и бордеров */
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
+}
+
+.inputMessage button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff; /* Фон кнопки */
+  color: white; /* Цвет текста кнопки */
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.inputMessage button:hover {
+  background-color: #0056b3; /* Фон кнопки при наведении */
 }
