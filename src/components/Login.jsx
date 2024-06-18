@@ -10,28 +10,15 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Симуляция успешного логина
-    setIsLoggedIn(true);
-    navigate('/');
-    // Комментируем реальный запрос на сервер
-    /*
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email, password })
-    });
+
+    const response = await fetch(`http://localhost:5001/users?email=${email}&password=${password}`);
     const data = await response.json();
-    if (response.ok) {
-      // Save token to context or local storage
+    if (data.length > 0) {
       setIsLoggedIn(true);
-      // Redirect to the home page
       navigate('/');
     } else {
       alert('Failed to login');
     }
-    */
   };
 
   return (
@@ -60,4 +47,3 @@ export default function Login() {
     </div>
   );
 }
-

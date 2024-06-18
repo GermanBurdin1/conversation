@@ -133,6 +133,14 @@
         {
           "content": "If a man does not make new acquaintances as he advances through life, he will soon find himself left alone. A man, sir, should keep his friendship in a constant repair.",
           "role": "assistant"
+        },
+        {
+          "content": "bonjour",
+          "role": "user"
+        },
+        {
+          "content": "When one tugs at a single thing in nature, he finds it attached to the rest of the world.",
+          "role": "assistant"
         }
       ]
     },
@@ -179,6 +187,13 @@
           "role": "assistant"
         }
       ]
+    }
+  ],
+  "users": [
+    {
+      "id": "8a48",
+      "email": "test@gmail.com",
+      "password": "test"
     }
   ]
 }

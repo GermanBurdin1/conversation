@@ -53,7 +53,7 @@ const Home = () => {
 
   const handleSelectDialog = (id) => {
     setActiveDialogId(id);
-    console.log("Selected dialog id:", id); // Log the selected dialog id
+    console.log("Selected dialog id:", id); 
   };
 
   const handleDeleteMessagePair = (messageIndex) => {
