@@ -59,6 +59,14 @@
         {
           "content": "I am an optimist. It does not seem too much use being anything else.",
           "role": "assistant"
+        },
+        {
+          "content": "ищты",
+          "role": "user"
+        },
+        {
+          "content": "This is why I loved technology: if you used it right, it could give you power and privacy.",
+          "role": "assistant"
         }
       ]
     },
@@ -160,6 +168,14 @@
         },
         {
           "content": "Do not scorn what you have received, nor envy the gains of others. He who envies others does not obtain peace of mind.",
+          "role": "assistant"
+        },
+        {
+          "content": "hi",
+          "role": "user"
+        },
+        {
+          "content": "A man is great by deeds, not by birth.",
           "role": "assistant"
         }
       ]

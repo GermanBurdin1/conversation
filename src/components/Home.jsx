@@ -31,24 +31,25 @@ const Home = () => {
   const [activeDialogId, setActiveDialogId] = useState("1");
 
   const handleSend = useCallback(
-    (message) => {
-      setDialogs((prevDialogs) => {
-        const newDialogs = prevDialogs.map((dialog) =>
-          dialog.id === activeDialogId
-            ? {
-                ...dialog,
-                messages: [
-                  ...(dialog.messages || []),
-                  { content: message, role: "user" },
-                ],
-              }
-            : dialog
-        );
-        return newDialogs;
-      });
-    },
-    [activeDialogId]
-  );
+		(message, role) => {
+			setDialogs((prevDialogs) => {
+				const newDialogs = prevDialogs.map((dialog) =>
+					dialog.id === activeDialogId
+						? {
+								...dialog,
+								messages: [
+									...(dialog.messages || []),
+									{ content: message, role: role },
+								],
+							}
+						: dialog
+				);
+				return newDialogs;
+			});
+		},
+		[activeDialogId]
+	);
+	
 
   const handleSelectDialog = (id) => {
     setActiveDialogId(id);
