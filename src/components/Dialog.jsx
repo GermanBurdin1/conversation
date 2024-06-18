@@ -5,7 +5,7 @@ export default function Dialog({ id, messages = [], onDelete, onReset, onSend })
   const [localMessages, setLocalMessages] = useState(Array.isArray(messages) ? messages : []);
 
   useEffect(() => {
-    console.log('Fetching messages for conversation ID:', id); // Лог ID
+    console.log('Fetching messages for conversation ID:', id);
     setLocalMessages(Array.isArray(messages) ? messages : []);
   }, [id, messages]);
 
@@ -23,7 +23,7 @@ export default function Dialog({ id, messages = [], onDelete, onReset, onSend })
   const handleSendMessage = async (message) => {
     console.log('Sending message:', message); 
     const url = `http://localhost:5001/conversations/${id}?_embed=messages`;
-    console.log('POST URL:', url); // Лог URL
+    console.log('POST URL:', url);
 
     if (!id) {
       console.error('ID is undefined while sending message');
@@ -32,7 +32,6 @@ export default function Dialog({ id, messages = [], onDelete, onReset, onSend })
     }
 
     try {
-      // Fetch the current conversation
       const response = await fetch(url);
       if (response.ok) {
         const conversation = await response.json();
@@ -88,14 +87,14 @@ export default function Dialog({ id, messages = [], onDelete, onReset, onSend })
         alert('Failed to send message');
       }
     } catch (error) {
-      console.error('Error sending message:', error); // Log errors
+      console.error('Error sending message:', error);
     }
   };
 
   const handleDeleteMessagePair = (index) => {
     setLocalMessages((prevMessages) => {
       const updatedMessages = [...prevMessages];
-      updatedMessages.splice(index, 2); // Удаляем пару сообщений
+      updatedMessages.splice(index, 2); 
       return updatedMessages;
     });
     onDelete(index);

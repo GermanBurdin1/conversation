@@ -19,11 +19,14 @@ const Home = () => {
       id: "1",
       title: "Php",
       messages: [
-        { content: "hello?", role: "user" },
-        { content: "world", role: "assistant" },
+        { content: "syntaxe", role: "user" },
+        { content: "$var", role: "assistant" },
       ],
     },
-    { id: "2", title: "python", messages: [] },
+    { id: "2", title: "python", messages: [
+			{content: "syntaxe", role: "user"},
+			{content: " var", role: "assistant"},
+		] },
   ]);
   const [activeDialogId, setActiveDialogId] = useState("1");
 
