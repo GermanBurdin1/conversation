@@ -21,7 +21,7 @@ export default function Dialog({ id, messages = [], onDelete, onReset, onSend })
   };
 
   const handleSendMessage = async (message) => {
-    console.log('Sending message:', message); // Лог отправляемого сообщения
+    console.log('Sending message:', message); 
     const url = `http://localhost:5001/conversations/${id}?_embed=messages`;
     console.log('POST URL:', url); // Лог URL
 
@@ -36,18 +36,15 @@ export default function Dialog({ id, messages = [], onDelete, onReset, onSend })
       const response = await fetch(url);
       if (response.ok) {
         const conversation = await response.json();
-        console.log('Fetched conversation:', conversation); // Лог полученных данных
+        console.log('Fetched conversation:', conversation); 
 
-        // Ensure messages is an array
         if (!Array.isArray(conversation.messages)) {
           conversation.messages = [];
         }
 
-        // Update the conversation with the new message
         const updatedMessages = [...conversation.messages, { content: message, role: 'user' }];
         const updatedConversation = { ...conversation, messages: updatedMessages };
 
-        // Send the updated conversation back to the server
         const putResponse = await fetch(`http://localhost:5001/conversations/${id}`, {
           method: 'PUT',
           headers: {
@@ -61,14 +58,12 @@ export default function Dialog({ id, messages = [], onDelete, onReset, onSend })
           setLocalMessages(updatedMessages);
           onSend(message);
 
-          // Генерация фейкового ответа от сервера
           setTimeout(async () => {
             const fakeResponseContent = await fetchRandomMessage();
             const fakeResponse = { content: fakeResponseContent, role: 'assistant' };
             const updatedMessagesWithFakeResponse = [...updatedMessages, fakeResponse];
             const updatedConversationWithFakeResponse = { ...updatedConversation, messages: updatedMessagesWithFakeResponse };
 
-            // Send the updated conversation back to the server
             const putFakeResponse = await fetch(`http://localhost:5001/conversations/${id}`, {
               method: 'PUT',
               headers: {
@@ -83,7 +78,7 @@ export default function Dialog({ id, messages = [], onDelete, onReset, onSend })
             } else {
               console.error('Failed to update conversation with fake response:', putFakeResponse.status);
             }
-          }, 1000); // 1 second delay for fake response
+          }, 1000); 
         } else {
           console.error('Failed to update conversation:', putResponse.status);
           alert('Failed to send message');

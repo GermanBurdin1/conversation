@@ -1,26 +1,26 @@
 import { useState, useEffect } from 'react';
 
-export default function DialogList({ dialogs, setDialogs, onSelect, onCreateDialog }) {
+export default function DialogList({ dialogs, setDialogs, onSelect }) {
   const [newDialogTitle, setNewDialogTitle] = useState('');
   const [isCreatingDialog, setIsCreatingDialog] = useState(false);
   const [editingDialogId, setEditingDialogId] = useState(null);
   const [editedTitle, setEditedTitle] = useState('');
 
   useEffect(() => {
-    console.log('Fetching conversations'); // Лог начала запроса
+    console.log('Fetching conversations'); 
 
     async function fetchConversations() {
       try {
         const response = await fetch('http://localhost:5001/conversations');
         if (response.ok) {
           const data = await response.json();
-          console.log('Fetched conversations:', data); // Лог успешного получения данных
+          console.log('Fetched conversations:', data); 
           setDialogs(data);
         } else {
           console.error('Failed to fetch conversations:', response.status);
         }
       } catch (error) {
-        console.error('Error fetching conversations:', error); // Лог ошибок
+        console.error('Error fetching conversations:', error); 
       }
     }
     fetchConversations();
@@ -32,7 +32,7 @@ export default function DialogList({ dialogs, setDialogs, onSelect, onCreateDial
 
   const handleCreateDialog = async () => {
     if (newDialogTitle.trim() !== "") {
-      console.log('Creating new dialog:', newDialogTitle); // Лог создания нового диалога
+      console.log('Creating new dialog:', newDialogTitle);
 
       try {
         const response = await fetch('http://localhost:5001/conversations', {
